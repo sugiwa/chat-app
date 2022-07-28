@@ -1,6 +1,8 @@
 package main
 
 import (
+	"backend/src/domain"
+	"backend/src/handlers"
 	"fmt"
 	"log"
 	"net/http"
@@ -13,6 +15,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/test", handler)
+	hub := domain.NewHub()
+	go hub.RunLoop()
+
+	// http.HandleFunc("/test", handler)
+	http.HandleFunc("/ws", handlers.NewWebsocketHandler(hub).Handle)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

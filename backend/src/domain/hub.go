@@ -1,5 +1,7 @@
 package domain
 
+import "fmt"
+
 type Hub struct {
 	Clients map[*Client]bool
 	RegisterCh chan *Client
@@ -24,6 +26,8 @@ func (h *Hub) RunLoop() {
 		case client := <-h.UnRegisterCh:
 			h.unregister(client)
 		case msg := <-h.BroadcastCh:
+			fmt.Println(msg)
+			fmt.Println(string(msg))
 			h.broadCastToAllClient(msg)
 		}
 	}

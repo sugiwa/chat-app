@@ -10,15 +10,14 @@ import (
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("test")
-
-	fmt.Fprint(w, "test ok")
+	handlers.Test(w)
 }
 
 func main() {
 	hub := domain.NewHub()
 	go hub.RunLoop()
 
-	// http.HandleFunc("/test", handler)
+	http.HandleFunc("/test", handler)
 	http.HandleFunc("/ws", handlers.NewWebsocketHandler(hub).Handle)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

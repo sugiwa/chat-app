@@ -1,20 +1,22 @@
 package domain
 
-import "fmt"
+import (
+	"backend/src/services"
+)
 
 type Hub struct {
-	Clients map[*Client]bool
-	RegisterCh chan *Client
+	Clients      map[*Client]bool
+	RegisterCh   chan *Client
 	UnRegisterCh chan *Client
-	BroadcastCh chan []byte
+	BroadcastCh  chan []byte
 }
 
 func NewHub() *Hub {
 	return &Hub{
-		Clients: make(map[*Client]bool),
-		RegisterCh: make(chan *Client),
+		Clients:      make(map[*Client]bool),
+		RegisterCh:   make(chan *Client),
 		UnRegisterCh: make(chan *Client),
-		BroadcastCh: make(chan []byte),
+		BroadcastCh:  make(chan []byte),
 	}
 }
 
@@ -26,9 +28,8 @@ func (h *Hub) RunLoop() {
 		case client := <-h.UnRegisterCh:
 			h.unregister(client)
 		case msg := <-h.BroadcastCh:
-			fmt.Println(msg)
-			fmt.Println(string(msg))
 			h.broadCastToAllClient(msg)
+			services.SaveMessage(string(msg))
 		}
 	}
 }

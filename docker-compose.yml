@@ -21,9 +21,11 @@ services:
     volumes:
       - ./backend:/app
     environment:
-    - POSTGRES_USER
-    - POSTGRES_PASSWORD
-    - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    depends_on:
+      - postgres_db
 
   postgres_db:
     image: postgres:14

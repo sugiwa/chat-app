@@ -1,4 +1,4 @@
 CREATE TABLE messages (
     id SERIAL NOT NULL PRIMARY KEY,
-    message VARCHAR(255) NOT NULL
+    text VARCHAR(255) NOT NULL
 );

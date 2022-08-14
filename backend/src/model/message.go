@@ -1,5 +1,6 @@
 package model
 
 type Message struct {
-	message string
+	Id   int    `json:"id"`
+	Text string `json:"text"`
 }

@@ -25,6 +25,7 @@ func (h *Hub) RunLoop() {
 		select {
 		case client := <-h.RegisterCh:
 			h.register(client)
+			h.RestoreMessage(client)
 		case client := <-h.UnRegisterCh:
 			h.unregister(client)
 		case msg := <-h.BroadcastCh:
@@ -45,5 +46,16 @@ func (h *Hub) unregister(c *Client) {
 func (h *Hub) broadCastToAllClient(msg []byte) {
 	for c := range h.Clients {
 		c.sendCh <- msg
+	}
+}
+
+func (h *Hub) UniCast(msg []byte, c *Client) {
+	c.sendCh <- msg
+}
+
+func (h *Hub) RestoreMessage(c *Client) {
+	messages := services.FetchMessages()
+	for _, msg := range messages {
+		h.UniCast([]byte(msg.Text), c)
 	}
 }

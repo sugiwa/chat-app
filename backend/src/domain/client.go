@@ -22,7 +22,7 @@ func NewClient(ws *websocket.Conn) *Client {
 	}
 }
 
-func (c *Client) ReadLoop(broadCast chan<- []byte, unregister chan <- *Client) {
+func (c *Client) ReadLoop(broadCast chan<- []byte, unregister chan<- *Client) {
 	defer func() {
 		c.disconnect(unregister)
 	}()
@@ -46,7 +46,7 @@ func (c *Client) WriteLoop() {
 	}()
 
 	for {
-		message := <- c.sendCh
+		message := <-c.sendCh
 
 		w, err := c.ws.NextWriter(websocket.TextMessage)
 		if err != nil {
@@ -63,5 +63,5 @@ func (c *Client) WriteLoop() {
 
 func (c *Client) disconnect(unregister chan<- *Client) {
 	unregister <- c
-	c.ws.Close()                               
+	c.ws.Close()
 }

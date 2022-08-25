@@ -11,10 +11,6 @@ type Client struct {
 	sendCh chan []byte
 }
 
-// type Message struct {
-// 	a []byte
-// }
-
 func NewClient(ws *websocket.Conn) *Client {
 	return &Client{
 		ws:     ws,
@@ -33,6 +29,7 @@ func (c *Client) ReadLoop(broadCast chan<- []byte, unregister chan<- *Client) {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				log.Printf("unexpected close error: %v", err)
 			}
+			break
 
 		}
 
@@ -51,6 +48,10 @@ func (c *Client) WriteLoop() {
 		w, err := c.ws.NextWriter(websocket.TextMessage)
 		if err != nil {
 			return
+		}
+
+		for i := 0; i < len(c.sendCh); i++ {
+			w.Write(<-c.sendCh)
 		}
 
 		w.Write(message)

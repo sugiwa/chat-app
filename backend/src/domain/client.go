@@ -1,7 +1,9 @@
 package domain
 
 import (
+	"fmt"
 	"log"
+	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -32,6 +34,7 @@ func (c *Client) ReadLoop(broadCast chan<- []byte, unregister chan<- *Client) {
 			break
 
 		}
+		fmt.Println("READ jsonMsg", jsonMsg)
 
 		broadCast <- jsonMsg
 	}
@@ -44,6 +47,7 @@ func (c *Client) WriteLoop() {
 
 	for {
 		message := <-c.sendCh
+		fmt.Println("WRITE jsonMsg", message)
 
 		w, err := c.ws.NextWriter(websocket.TextMessage)
 		if err != nil {
@@ -59,6 +63,7 @@ func (c *Client) WriteLoop() {
 		if err := w.Close(); err != nil {
 			return
 		}
+		time.Sleep(1 * time.Millisecond)
 	}
 }
 

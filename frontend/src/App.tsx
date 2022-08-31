@@ -1,5 +1,5 @@
-import { MessageInput } from "./components/MessageInput";
-import { MessageList } from "./components/MessageList";
+import { MessageInput } from './components/MessageInput';
+import { MessageList } from './components/MessageList';
 
 export const App = () => {
   return (
@@ -8,5 +8,5 @@ export const App = () => {
       <MessageInput />
       <MessageList />
     </div>
-  )
-}
+  );
+};

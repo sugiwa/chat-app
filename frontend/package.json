@@ -25,7 +25,9 @@
     "start": "craco start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --check ./src",
+    "format:fix": "prettier --write ./src"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +49,7 @@
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.10.2",
-    "@types/websocket": "^1.0.5"
+    "@types/websocket": "^1.0.5",
+    "prettier": "^2.7.1"
   }
 }

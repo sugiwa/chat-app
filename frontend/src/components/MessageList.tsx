@@ -1,10 +1,17 @@
+import React from 'react'
 import { useMessageList } from "../hooks/use-message-list";
 
-export const MessageList = () => {
+import {css} from '@emotion/react'
+
+const message = css`
+    background-color: #EEEEEE
+`
+
+export const MessageList: React.FC = () => {
     const messageList = useMessageList()
 
     return (
-        <div>
+        <div css={message}>
             {messageList.map((m, i) => (
                 <div key={i}>{m.content}</div>
             ))}

@@ -63,7 +63,7 @@ func (c *Client) WriteLoop() {
 		if err := w.Close(); err != nil {
 			return
 		}
-		time.Sleep(1 * time.Millisecond)
+		time.Sleep(10 * time.Millisecond)
 	}
 }
 

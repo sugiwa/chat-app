@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useSendMessage } from '../hooks/use-send-message';
 
 import { css } from '@emotion/react';
@@ -16,10 +16,10 @@ export const MessageInput = () => {
   const { input, setInput, send } = useSendMessage();
 
   const keyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === 'Enter') {
-      send()
+    if (e.key === 'Enter') {
+      send();
     }
-  }
+  };
 
   return (
     <div css={messageInputCss}>

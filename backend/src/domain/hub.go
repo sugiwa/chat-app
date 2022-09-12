@@ -2,6 +2,8 @@ package domain
 
 import (
 	"backend/src/services"
+	"encoding/json"
+	"fmt"
 )
 
 type Hub struct {
@@ -9,6 +11,11 @@ type Hub struct {
 	RegisterCh   chan *Client
 	UnRegisterCh chan *Client
 	BroadcastCh  chan []byte
+}
+
+type Json struct {
+	Message string `json:"message"`
+	UserId  int    `json:"userId"`
 }
 
 func NewHub() *Hub {
@@ -29,8 +36,16 @@ func (h *Hub) RunLoop() {
 		case client := <-h.UnRegisterCh:
 			h.unregister(client)
 		case msg := <-h.BroadcastCh:
+			var jsonBody Json
+			b := []byte(msg)
+			if err := json.Unmarshal(b, &jsonBody); err != nil {
+				fmt.Println(err)
+			}
+
+			message := jsonBody.Message
+
 			h.broadCastToAllClient(msg)
-			services.SaveMessage(string(msg))
+			services.SaveMessage(message)
 		}
 	}
 }
@@ -56,6 +71,8 @@ func (h *Hub) UniCast(msg []byte, c *Client) {
 func (h *Hub) RestoreMessage(c *Client) {
 	messages := services.FetchMessages()
 	for _, msg := range messages {
-		h.UniCast([]byte(msg.Text), c)
+		val := Json{Message: msg.Text, UserId: 1}
+		json, _ := json.Marshal(val)
+		h.UniCast(json, c)
 	}
 }

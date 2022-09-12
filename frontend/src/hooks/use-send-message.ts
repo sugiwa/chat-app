@@ -8,7 +8,12 @@ export const useSendMessage = () => {
 
   const send = useCallback(() => {
     if (input.length === 0) return;
-    socket.send(input);
+    const body = {
+      message: input,
+      userId: 1,
+    };
+    const jsonBody = JSON.stringify(body)
+    socket.send(jsonBody);
     setInput('');
   }, [input, socket]);
 

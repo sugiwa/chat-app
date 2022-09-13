@@ -1,3 +1,4 @@
+import { Header } from './components/Header/Header';
 import { MessageInput } from './components/MessageInput';
 import { MessageList } from './components/MessageList';
 
@@ -14,7 +15,7 @@ const AppCss = css`
 export const App = () => {
   return (
     <div css={AppCss}>
-      <h1>Simple Chat</h1>
+      <Header />
       <MessageList />
       <MessageInput />
     </div>

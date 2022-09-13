@@ -12,7 +12,7 @@ export const useSendMessage = () => {
       message: input,
       userId: 1,
     };
-    const jsonBody = JSON.stringify(body)
+    const jsonBody = JSON.stringify(body);
     socket.send(jsonBody);
     setInput('');
   }, [input, socket]);

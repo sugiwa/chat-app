@@ -17,7 +17,7 @@ export const useMessageList = (): Message[] => {
 
   socket.onmessage = (msg: IMessageEvent) => {
     const json = msg.data as string;
-    const result = JSON.parse(json)
+    const result = JSON.parse(json);
     const message: Message = { content: result.message };
     updateMessageList(message);
   };

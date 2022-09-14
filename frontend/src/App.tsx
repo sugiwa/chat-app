@@ -1,7 +1,8 @@
 import { Header } from './components/Header/Header';
-import { MessageInput } from './components/MessageInput';
-import { MessageList } from './components/MessageList';
+import { MessagePage } from './pages/MessagePage';
+import { LoginPage } from './pages/LoginPage';
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { css } from '@emotion/react';
 import emotionReset from 'emotion-reset';
 
@@ -16,8 +17,12 @@ export const App = () => {
   return (
     <div css={AppCss}>
       <Header />
-      <MessageList />
-      <MessageInput />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<MessagePage />} />
+          <Route path='/login' element={<LoginPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

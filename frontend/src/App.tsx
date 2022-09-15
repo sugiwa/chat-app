@@ -16,8 +16,8 @@ const AppCss = css`
 export const App = () => {
   return (
     <div css={AppCss}>
-      <Header />
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path='/' element={<MessagePage />} />
           <Route path='/login' element={<LoginPage />} />

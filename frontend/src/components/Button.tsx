@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 
 type Props = {
   text?: string;
+  clickEvent?: () => void;
 };
 
 const buttonCss = css`
@@ -13,14 +14,10 @@ const buttonCss = css`
 `;
 
 export const Button = (props: Props) => {
-  const { text } = props;
-
-  const click = () => {
-    console.log('click event');
-  };
+  const { text, clickEvent } = props;
 
   return (
-    <div css={buttonCss} onClick={click}>
+    <div css={buttonCss} onClick={clickEvent}>
       {text}
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Form } from '../components/Form/form';
+import axios from 'axios';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -13,8 +14,17 @@ export const LoginPage = () => {
     setPassword(value);
   };
 
-  const login = () => {
+  const login = async () => {
     console.log('LOGIN', email, password);
+    const body = {
+      email: email,
+      password: password,
+    };
+
+    const url = 'localhost:8080/login';
+    await axios.post(url, body).then((res) => {
+      console.log(res);
+    });
   };
 
   return (

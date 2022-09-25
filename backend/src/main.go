@@ -18,6 +18,7 @@ func main() {
 	go hub.RunLoop()
 
 	http.HandleFunc("/test", handler)
+	http.HandleFunc("/login", handlers.Login)
 	http.HandleFunc("/ws", handlers.NewWebsocketHandler(hub).Handle)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

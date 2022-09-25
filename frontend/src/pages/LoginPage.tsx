@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Form } from '../components/Form/form';
-import axios from 'axios';
+import * as axios from '../util/api';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -21,10 +21,9 @@ export const LoginPage = () => {
       password: password,
     };
 
-    const url = 'localhost:8080/login';
-    await axios.post(url, body).then((res) => {
-      console.log(res);
-    });
+    const url = 'http://localhost:8080/login';
+    const result = await axios.post(url, body);
+    console.log('post result: ', result);
   };
 
   return (

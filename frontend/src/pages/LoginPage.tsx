@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Form } from '../components/Form/form';
 import * as axios from '../util/api';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const updateEmail = (value: string) => {
     setEmail(value);
@@ -23,7 +25,11 @@ export const LoginPage = () => {
 
     const url = 'http://localhost:8080/login';
     const result = await axios.post(url, body);
-    console.log('post result: ', result);
+
+    const user = JSON.stringify(result)
+    localStorage.setItem('user', user)
+
+    navigate('/');
   };
 
   return (

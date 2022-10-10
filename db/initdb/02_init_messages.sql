@@ -1,4 +1,5 @@
 CREATE TABLE messages (
     id SERIAL NOT NULL PRIMARY KEY,
+    user_id INTEGER,
     text VARCHAR(255) NOT NULL
 );

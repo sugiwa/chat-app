@@ -6,7 +6,7 @@ export const useSendMessage = () => {
   const socket = useRecoilValue(websocketAtom);
   const [input, setInput] = useState<string>('');
 
-  const userInfo = JSON.parse(localStorage.getItem('user') as string)
+  const userInfo = JSON.parse(localStorage.getItem('user') as string);
 
   const send = useCallback(() => {
     if (input.length === 0) return;

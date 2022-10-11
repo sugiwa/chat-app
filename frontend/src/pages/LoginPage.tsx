@@ -26,8 +26,8 @@ export const LoginPage = () => {
     const url = 'http://localhost:8080/login';
     const result = await axios.post(url, body);
 
-    const user = JSON.stringify(result)
-    localStorage.setItem('user', user)
+    const user = JSON.stringify(result);
+    localStorage.setItem('user', user);
 
     navigate('/');
   };
